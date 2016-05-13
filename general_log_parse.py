@@ -8,8 +8,7 @@ import time
 
 def main(args):
     try:
-        opts, other = getopt.getopt(args, "h",
-                ["help", "infile=", "outfile="])
+        opts, other = getopt.getopt(args, "hi:o:", ["help"])
     except getopt.GetoptError, err:
         print str(err)
         usage()
@@ -20,9 +19,9 @@ def main(args):
         if k in ("-h", "--help"):
             usage()
             sys.exit(1)
-        elif k == "--infile":
+        elif k == "-i":
             infile = v
-        elif k == "--outfile":
+        elif k == "-o":
             outfile = v
         else:
             print "unknown options"
@@ -33,12 +32,12 @@ def usage():
     sl = [
             "general_log_parse.py usage:",
             "-h, --help: print help message",
-            "--infile: input file", 
-            "--outfile: output file"
+            "-i: input file", 
+            "-o: output file"
          ]
     print "\n    ".join(sl)
     print "\nexample:"
-    print "    ./general_log_parse.py --infile=a.log --outfile=b.log"
+    print "    ./general_log_parse.py -i a.log -o b.log"
 
 def read_file(infile, outfile):
     if infile == "" or outfile == "":
