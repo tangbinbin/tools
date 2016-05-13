@@ -10,15 +10,15 @@ import getopt
 def usage():
     sl = [
             "dbstatus.py usage:",
-            "-h, --help: print help message",
-            "--host: mysql host",
-            "--port: mysql Port",
-            "--user: mysql user",
-            "--password: mysql password",
+            "--help: print help message",
+            "-h: mysql host",
+            "-P: mysql Port",
+            "-u: mysql user",
+            "-p: mysql password",
          ]
     print "\n    ".join(sl)
     print "\nexample:"
-    print "    ./dbstatus.py --host=127.0.0.1 --port=3306 --user=test --password=test"
+    print "    ./dbstatus.py -h127.0.0.1 -P3306 -utest -ptest"
 
 def get_conn(Host, Port, User, Passwd):
     db =  MySQLdb.connect(
@@ -110,8 +110,7 @@ def echo_state(db):
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "h",
-                ["help", "host=", "port=", "user=", "password="])
+        opts, args = getopt.getopt(argv, "h:P:u:p:", ["help"])
     except getopt.GetoptError, err:
         print str(err)
         usage()
@@ -120,16 +119,16 @@ def main(argv):
     Host = "127.0.0.1"
     Port = 3306
     for o, a in opts:
-        if o in ("--help", "-h"):
+        if o == "--help":
             usage()
             sys.exit(1)
-        elif o == "--host":
+        elif o == "-h":
             Host = a
-        elif o == "--port":
+        elif o == "-P":
             Port = int(a)
-        elif o == "--user":
+        elif o == "-u":
             User = a
-        elif o == "--password":
+        elif o == "-p":
             Passwd = a
         else:
             print "unhandled option"
